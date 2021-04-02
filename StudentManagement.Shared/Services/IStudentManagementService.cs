@@ -9,5 +9,11 @@ namespace StudentManagement.Api.Services
         PaginatedList<Student> GetAllStudents(int pageIndex, int pageSize);
 
         void Add(Student student);
+
+        int Update(Student student);
+
+        Student GetById(int Id);
+
+        void Delete(int id);
     }
 }

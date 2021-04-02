@@ -22,9 +22,27 @@ namespace Std.Services.Services
             studentRepository.Add(student);
         }
 
+        public void Delete(int id)
+        {
+            Student data = studentRepository.GetSingle(id);
+            studentRepository.Delete(data);
+        }
+
         public PaginatedList<Student> GetAllStudents(int pageIndex, int pageSize = 10)
         {
             return studentRepository.Paginate(pageIndex, pageSize, x => x.Id);
+        }
+
+        public Student GetById(int Id)
+        {
+            Student data = studentRepository.GetSingle(Id);
+            return data;
+        }
+
+
+        public int Update(Student student)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

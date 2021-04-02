@@ -16,9 +16,11 @@ namespace StudentManagement.Api.Entities
         public string CourseCode { get; set; }
 
         [Required]
+        [StringLength(100)]
         public string CourseName { get; set; }
 
         [Required]
+        [StringLength(100)]
         public string TeacherName { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]

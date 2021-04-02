@@ -12,12 +12,14 @@ namespace StudentManagement.Api.Entities
         public int Id { get; set; }
 
         [Required]
+        [StringLength(100)]
         public string FirstName { get; set; }
 
+        [StringLength(100)]
         public string SurName { get; set; }
 
         [Required]
-        [StringLength(1)]
+        [StringLength(15)]
         public string Gender { get; set; }
 
         public DateTime? DOB { get; set; }
@@ -26,6 +28,8 @@ namespace StudentManagement.Api.Entities
 
         public virtual ICollection<Course> Courses { get; set; }
     }
+
+    
 
     [ComplexType]
     public class AddressDetails

@@ -1,8 +1,15 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
+using StudentManagement.Api.Entities;
 using StudentManagement.Api.Services;
 
 namespace StudentManagement.Controllers
 {
+    public enum Gender
+    {
+        Male,
+        Female
+    }
     public class StudentController : Controller
     {
         private readonly IStudentManagementService stdManagementService;
@@ -27,17 +34,21 @@ namespace StudentManagement.Controllers
         // GET: Student/Create
         public ActionResult Create()
         {
+            List<string> gender = new List<string>();
+            gender.Add("Female");
+            gender.Add("Male");
+
             return View();
         }
 
         // POST: Student/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(FormCollection collection, Student studentmodel)
         {
             try
             {
                 // TODO: Add insert logic here
-
+                stdManagementService.Add(studentmodel);
                 return RedirectToAction("Index");
             }
             catch
@@ -49,7 +60,9 @@ namespace StudentManagement.Controllers
         // GET: Student/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Student student = stdManagementService.GetById(id); //courseservice.GetById(id);
+            return View(student);
+            
         }
 
         // POST: Student/Edit/5
