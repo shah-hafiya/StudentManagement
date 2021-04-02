@@ -1,6 +1,6 @@
 ﻿namespace StudentManagement.DataAccess.Repositories.Interfaces
 {
-    public interface IUserRepository
+    public interface IStudentRepository
     {
     }
 }

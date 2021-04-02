@@ -1,9 +1,7 @@
-﻿using StudentManagement.Api.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
+using StudentManagement.Api.Entities;
 
 namespace StudentManagement.Api.Services
 {
@@ -19,9 +17,7 @@ namespace StudentManagement.Api.Services
 
         List<Course> GetAll();
 
-
-
-
-
+        PaginatedList<Course> Paginate<Course>(
+            int pageIndex, int pageSize);
     }
 }

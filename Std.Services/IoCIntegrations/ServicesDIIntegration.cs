@@ -8,9 +8,9 @@ namespace Std.Services.IoCIntegrations
     {
         public static void RegisterService(UnityContainer container)
         {
-            container.RegisterType<IUserManagementService, UsermanagementService>();
+            //container.RegisterType<IUserManagementService, UsermanagementService>();
+            container.RegisterType<IStudentManagementService, StudentManagementService>();
             container.RegisterType<ICourseManagementService, CourseManagementService>();
-
         }
     }
 }

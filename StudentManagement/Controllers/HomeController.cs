@@ -7,29 +7,29 @@ namespace StudentManagement.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IUserManagementService userservice;
+        private readonly IStudentManagementService stdService;
 
-        public HomeController(IUserManagementService userservice)
+        public HomeController(IStudentManagementService stdService)
         {
-            this.userservice = userservice;
+            this.stdService = stdService;
         }
 
         public ActionResult Index()
         {
-            userservice.Add(new Student
-            {
-                FirstName = "John",
-                SurName = "Doe",
-                Gender = "M",
-                DOB = DateTime.Now,
-                Address = new AddressDetails
-                {
-                    Line1 = "1196  Morningview Lane",
-                    Line2 = "2201  Morningview Lane"
-                }
-            });
+            //stdService.Add(new Student
+            //{
+            //    FirstName = "John",
+            //    SurName = "Doe",
+            //    Gender = "M",
+            //    DOB = DateTime.Now,
+            //    Address = new AddressDetails
+            //    {
+            //        Line1 = "1196  Morningview Lane",
+            //        Line2 = "2201  Morningview Lane"
+            //    }
+            //});
 
-            var students = userservice.Students;
+            var students = stdService.Students;
             return View();
         }
 

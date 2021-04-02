@@ -1,11 +1,10 @@
-﻿using StudentManagement.Api.Entities;
+﻿using System.Linq;
+using System.Collections.Generic;
+using StudentManagement.Api.Entities;
 using StudentManagement.Api.Services;
 using StudentManagement.DataAccess.Repositories.Interfaces;
+using System.Linq.Expressions;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Std.Services.Services
 {
@@ -21,38 +20,44 @@ namespace Std.Services.Services
         public void Add(Course course)
         {
             _courseRepository.Add(course);
-            
-        }     
+
+        }
 
         public int Update(Course course)
         {
-            Course coursedata = _courseRepository.GetById(course.Id);
+            Course coursedata = _courseRepository.GetSingle(course.Id);
             coursedata.Space = course.Space;
             coursedata.StartDate = course.StartDate;
             coursedata.EndDate = course.EndDate;
             coursedata.CourseCode = course.CourseCode;
             coursedata.CourseName = course.CourseName;
             coursedata.TeacherName = course.TeacherName;
-            _courseRepository.Update(coursedata);
+            _courseRepository.Edit(coursedata);
             return coursedata.Id;
         }
 
         public Course GetById(int Id)
         {
-            Course courseres = _courseRepository.GetById(Id);
+            Course courseres = _courseRepository.GetSingle(Id);
             return courseres;
         }
 
         public void Delete(int id)
         {
-            _courseRepository.Delete(id);
+            Course coursedata = _courseRepository.GetSingle(id);
+            _courseRepository.Delete(coursedata);
         }
 
         public List<Course> GetAll()
         {
-            List<Course> courselist = _courseRepository.Get().ToList();
+            List<Course> courselist = _courseRepository.GetAll().ToList();
             return courselist;
 
+        }
+
+        public PaginatedList<Course> Paginate<Course>(int pageIndex, int pageSize)
+        {
+            return _courseRepository.Paginate<Course>(pageIndex, pageSize, x => x.Id);
         }
     }
 }
