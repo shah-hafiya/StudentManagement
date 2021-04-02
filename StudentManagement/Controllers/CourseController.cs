@@ -20,7 +20,7 @@ namespace StudentManagement.Controllers
         public ActionResult Index()
         {
             List<Course> courses = courseservice.GetAll();
-            var paginated = courseservice.Paginate<Course>(1, 2);
+            var paginated = courseservice.GetAllCourses(1, 2);
 
             return View(courses);
         }

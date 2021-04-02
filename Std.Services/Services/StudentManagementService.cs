@@ -20,7 +20,11 @@ namespace Std.Services.Services
         public void Add(Student student)
         {
             studentRepository.Add(student);
+        }
 
+        public PaginatedList<Student> GetAllStudents(int pageIndex, int pageSize = 10)
+        {
+            return studentRepository.Paginate(pageIndex, pageSize, x => x.Id);
         }
     }
 }
