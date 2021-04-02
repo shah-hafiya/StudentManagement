@@ -47,10 +47,7 @@ namespace StudentManagement.DataAccess.Repositories
         public virtual PaginatedList<T> Paginate(
                     int pageIndex, int pageSize,
                     Expression<Func<T, int>> keySelector)
-        {
-
-            return Paginate(pageIndex, pageSize, keySelector, null);
-        }
+            => Paginate(pageIndex, pageSize, keySelector, null);
 
         public virtual PaginatedList<T> Paginate(
             int pageIndex, int pageSize,

@@ -11,6 +11,7 @@ namespace StudentManagement.Api.Entities
         [Column("CourseId")]
         public int Id { get; set; }
 
+
         [Required]
         public string CourseCode { get; set; }
 
@@ -20,8 +21,10 @@ namespace StudentManagement.Api.Entities
         [Required]
         public string TeacherName { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime? StartDate { get; set; }
 
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime? EndDate { get; set; }
 
         public Nullable<int> Space { get; set; }

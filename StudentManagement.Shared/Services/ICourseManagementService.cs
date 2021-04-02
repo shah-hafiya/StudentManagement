@@ -17,7 +17,6 @@ namespace StudentManagement.Api.Services
 
         List<Course> GetAll();
 
-        PaginatedList<Course> Paginate<Course>(
-            int pageIndex, int pageSize);
+        PaginatedList<Course> GetAllCourses(int pageIndex, int pageSize);
     }
 }

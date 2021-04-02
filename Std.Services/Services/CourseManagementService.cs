@@ -52,12 +52,11 @@ namespace Std.Services.Services
         {
             List<Course> courselist = _courseRepository.GetAll().ToList();
             return courselist;
-
         }
 
-        public PaginatedList<Course> Paginate<Course>(int pageIndex, int pageSize)
+        public PaginatedList<Course> GetAllCourses(int pageIndex, int pageSize)
         {
-            return _courseRepository.Paginate<Course>(pageIndex, pageSize, x => x.Id);
+            return _courseRepository.Paginate(pageIndex, pageSize, x => x.Id);
         }
     }
 }
