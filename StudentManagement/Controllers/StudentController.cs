@@ -2,14 +2,11 @@
 using System.Web.Mvc;
 using StudentManagement.Api.Entities;
 using StudentManagement.Api.Services;
+using StudentManagement.Models;
 
 namespace StudentManagement.Controllers
 {
-    public enum Gender
-    {
-        Male,
-        Female
-    }
+    [Authorize(Roles = "Admin")]
     public class StudentController : Controller
     {
         private readonly IStudentManagementService stdManagementService;
@@ -25,13 +22,8 @@ namespace StudentManagement.Controllers
             return View(students);
         }
 
-        // GET: Student/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: Student/Create
+        [AllowAnonymous]
         public ActionResult Create()
         {
             List<string> gender = new List<string>();
@@ -42,65 +34,91 @@ namespace StudentManagement.Controllers
         }
 
         // POST: Student/Create
+        [AllowAnonymous]
         [HttpPost]
-        public ActionResult Create(FormCollection collection, Student studentmodel)
+        public ActionResult Create(StudentCreateVM studentmodel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
-                stdManagementService.Add(studentmodel);
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
+                var student = StudentVM.ToStudent(studentmodel);
+                student.Password = studentmodel.Password;
 
-        // GET: Student/Edit/5
-        public ActionResult Edit(int id)
-        {
-            Student student = stdManagementService.GetById(id); //courseservice.GetById(id);
-            return View(student);
-            
-        }
+                stdManagementService.Add(student);
 
-        // POST: Student/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                return RedirectToAction("Login", "Account");
             }
-            catch
-            {
-                return View();
-            }
-        }
 
-        // GET: Student/Delete/5
-        public ActionResult Delete(int id)
-        {
             return View();
         }
 
-        // POST: Student/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        // GET: Student/Edit/5
+        [AllowAnonymous]
+        public ActionResult Edit(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            Student student = stdManagementService.GetById(id); //courseservice.GetById(id);
+            return View(StudentVM.ToStudentVM(student));
 
-                return RedirectToAction("Index");
-            }
-            catch
+        }
+
+        // POST: Student/Edit/5
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult Edit(int id, StudentVM studentmodel)
+        {
+            if (ModelState.IsValid)
             {
-                return View();
+                var student = stdManagementService.GetById(id);
+
+                if (student != null)
+                {
+                    student.FirstName = studentmodel.FirstName;
+                    student.SurName = studentmodel.SurName;
+                    student.Gender = studentmodel.Gender;
+                    student.DOB = studentmodel.DOB;
+                    student.Address.Line1 = studentmodel?.Line1;
+                    student.Address.Line2 = studentmodel?.Line2;
+                    student.Address.Line3 = studentmodel?.Line3;
+
+                    stdManagementService.Update(student);
+
+                    return RedirectToAction("Index", "Student");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, $"Student with {id} does not exists");
+                }
             }
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult Details(int id)
+        {
+            Student student = stdManagementService.GetById(id); //courseservice.GetById(id);
+            return View(StudentVM.ToStudentVM(student));
+
+        }
+
+        public ActionResult Delete(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var student = stdManagementService.GetById(id);
+
+                if (student != null)
+                {
+                    stdManagementService.Delete(id);
+
+                    return RedirectToAction("Index", "Student");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, $"Student with {id} does not exists");
+                }
+            }
+
+            return View();
         }
     }
 }

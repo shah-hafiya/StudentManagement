@@ -40,9 +40,9 @@ namespace Std.Services.Services
         }
 
 
-        public int Update(Student student)
+        public void Update(Student student)
         {
-            throw new System.NotImplementedException();
+            studentRepository.Edit(student);
         }
     }
 }

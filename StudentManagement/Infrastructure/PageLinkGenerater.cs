@@ -10,23 +10,26 @@ namespace StudentManagement.Infrastructure
         {
             StringBuilder result = new StringBuilder();
 
-            GeneratePrevNextButton("Previous Page", pageUrl(pagingInfo.PageIndex - 1), pagingInfo.HasPrevPage, result);
-
-            for (int i = 1; i <= pagingInfo.TotalPageCount; i++)
+            if (pagingInfo.TotalPageCount > 0)
             {
-                TagBuilder tag = new TagBuilder("a");
-                tag.MergeAttribute("href", pageUrl(i));
-                tag.InnerHtml = i.ToString();
-                if (i == pagingInfo.PageIndex)
-                {
-                    tag.AddCssClass("selected");
-                    tag.AddCssClass("btn-primary");
-                }
-                tag.AddCssClass("btn btn-default");
-                result.Append(tag.ToString());
-            }
+                GeneratePrevNextButton("Previous Page", pageUrl(pagingInfo.PageIndex - 1), pagingInfo.HasPrevPage, result);
 
-            GeneratePrevNextButton("Next Page", pageUrl(pagingInfo.PageIndex + 1), pagingInfo.HasNextPage, result);
+                for (int i = 1; i <= pagingInfo.TotalPageCount; i++)
+                {
+                    TagBuilder tag = new TagBuilder("a");
+                    tag.MergeAttribute("href", pageUrl(i));
+                    tag.InnerHtml = i.ToString();
+                    if (i == pagingInfo.PageIndex)
+                    {
+                        tag.AddCssClass("selected");
+                        tag.AddCssClass("btn-primary");
+                    }
+                    tag.AddCssClass("btn btn-default");
+                    result.Append(tag.ToString());
+                }
+
+                GeneratePrevNextButton("Next Page", pageUrl(pagingInfo.PageIndex + 1), pagingInfo.HasNextPage, result);
+            }
 
             return MvcHtmlString.Create(result.ToString());
         }

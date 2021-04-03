@@ -26,10 +26,12 @@ namespace StudentManagement.Api.Entities
 
         public AddressDetails Address { get; set; }
 
+        public string Password { get; set; }
+
         public virtual ICollection<Course> Courses { get; set; }
     }
 
-    
+
 
     [ComplexType]
     public class AddressDetails

@@ -10,7 +10,7 @@ namespace StudentManagement.Api.Services
 
         void Add(Student student);
 
-        int Update(Student student);
+        void Update(Student student);
 
         Student GetById(int Id);
 

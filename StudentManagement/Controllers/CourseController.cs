@@ -1,13 +1,12 @@
-﻿using StudentManagement.Api.Entities;
-using StudentManagement.Api.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System;
 using System.Web.Mvc;
+using System.Collections.Generic;
+using StudentManagement.Api.Entities;
+using StudentManagement.Api.Services;
 
 namespace StudentManagement.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CourseController : Controller
     {
         private readonly ICourseManagementService courseservice;
@@ -17,6 +16,7 @@ namespace StudentManagement.Controllers
         }
 
         // GET: Course
+        [AllowAnonymous]
         public ActionResult Index()
         {
             List<Course> courses = courseservice.GetAll();
@@ -26,6 +26,7 @@ namespace StudentManagement.Controllers
         }
 
         // GET: Course/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int id)
         {
             Course course = courseservice.GetById(id);
