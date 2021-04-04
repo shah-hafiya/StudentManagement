@@ -18,7 +18,12 @@ namespace StudentManagement.Controllers
         // GET: Student
         public ActionResult Index(int page = 1)
         {
-            var students = stdManagementService.GetAllStudents(page, 10);
+            var name = Request.QueryString["name"] ?? string.Empty;
+
+            if (!string.IsNullOrEmpty(name))
+                ViewBag.Name = name;
+
+            var students = stdManagementService.GetAllStudents(name, page);
             return View(students);
         }
 

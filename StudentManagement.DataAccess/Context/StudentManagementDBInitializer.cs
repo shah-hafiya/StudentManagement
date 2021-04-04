@@ -25,7 +25,7 @@ namespace StudentManagement.DataAccess.Context
                         FirstName = names[i]?.First,
                         SurName = names[i]?.Last,
                         Gender = names[i]?.Gender,
-                        DOB = new DateTime(yearDateTime.Year, randomGenerator.Next(1, 12), randomGenerator.Next(1, 30)),
+                        DOB = new DateTime(yearDateTime.Year, randomGenerator.Next(1, 12), randomGenerator.Next(1, 28)),
                         Password = $"{names[i]?.First}{names[i]?.Last}",
                         Address = new AddressDetails
                         {
