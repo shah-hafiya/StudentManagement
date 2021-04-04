@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using StudentManagement.Api.Entities;
+﻿using StudentManagement.Api.Entities;
+using System.Collections.Generic;
 
 namespace StudentManagement.Api.Services
 {
     public interface IStudentManagementService
     {
         IEnumerable<Student> Students { get; }
-        PaginatedList<Student> GetAllStudents(string name, int pageIndex, int pageSize = 10);
+        PaginatedList<Student> GetAllStudents(int pageIndex, int pageSize);
 
         void Add(Student student);
 

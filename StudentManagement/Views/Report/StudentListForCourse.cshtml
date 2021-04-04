@@ -1,0 +1,49 @@
+﻿@model IEnumerable<StudentManagement.Shared.Entities.StudentListForCourse>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>CourseWithSpace</h2>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SurName)
+        </th>
+        
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.SurName)
+            </td>
+           
+        </tr>
+    }
+
+</table>

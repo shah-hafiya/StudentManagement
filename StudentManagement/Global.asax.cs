@@ -22,7 +22,7 @@ namespace StudentManagement
 
             UnityContainerConfiguration.RegisterContainer();
 
-            Database.SetInitializer(new StudentManagementDBInitializer());
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<StudentManagementDbContext>());
         }
 
         protected void Application_AuthenticateRequest(object sender, EventArgs args)

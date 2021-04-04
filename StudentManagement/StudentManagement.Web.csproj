@@ -150,6 +150,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -211,6 +212,11 @@
     <Content Include="Views\Student\Edit.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Student\Details.cshtml" />
+    <Content Include="Views\Report\CoursesWithSpace.cshtml" />
+    <Content Include="Views\Report\RegisteredCourseForStudent.cshtml" />
+    <Content Include="Views\Report\StudentListForCourse.cshtml" />
+    <Content Include="Views\Report\StudentNotRegisteredForMaxCourse.cshtml" />
+    <Content Include="Views\Report\ShowReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

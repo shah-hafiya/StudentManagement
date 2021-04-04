@@ -7,6 +7,12 @@ namespace StudentManagement.Api.Entities
 {
     public class Student : IEntity
     {
+        public Student()
+        {
+            Courses = new List<Course>();
+        }
+
+
         [Key]
         [Column("StudentId")]
         public int Id { get; set; }
@@ -43,4 +49,23 @@ namespace StudentManagement.Api.Entities
         [Column("Address3")]
         public string Line3 { get; set; }
     }
+
+   [NotMapped]
+    public class CourseWithSpace
+    {
+        public int CourseId { get; set; }
+
+        public string CourseCode { get; set; }
+
+        public string CourseName { get; set; }
+
+        public int Space { get; set; } 
+        
+        public int TotalRegisteredStudents { get; set; }
+    }
+
+    
+
+
+
 }

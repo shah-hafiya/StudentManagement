@@ -13,6 +13,8 @@ namespace StudentManagement.DataAccess.IoCIntegrations
         {
             container.RegisterType<DbContext, StudentManagementDbContext>(new ContainerControlledLifetimeManager());
             container.RegisterType(typeof(IRepository<>), typeof(Repository<>));
+            container.RegisterType<IReportGeneratorRepository, ReportGenerator>();
+
         }
     }
 }

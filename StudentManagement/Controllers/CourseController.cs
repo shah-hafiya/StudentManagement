@@ -34,6 +34,7 @@ namespace StudentManagement.Controllers
         }
 
         // GET: Course/Create
+        [AllowAnonymous]
         public ActionResult Create()
         {
             return View();
@@ -41,6 +42,7 @@ namespace StudentManagement.Controllers
 
         // POST: Course/Create
         [HttpPost]
+        [AllowAnonymous]    
         public ActionResult Create(FormCollection collection, Course coursemodel)
         {
             try
@@ -57,6 +59,7 @@ namespace StudentManagement.Controllers
         }
 
         // GET: Course/Edit/5
+        [AllowAnonymous]
         public ActionResult Edit(int id)
         {
             Course course = courseservice.GetById(id);
@@ -65,6 +68,7 @@ namespace StudentManagement.Controllers
 
         // POST: Course/Edit/5
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Edit(int id, FormCollection collection, Course coursemodel)
         {
             try
@@ -81,6 +85,7 @@ namespace StudentManagement.Controllers
         }
 
         // GET: Course/Delete/5
+        [AllowAnonymous]
         public ActionResult Delete(int id)
         {
             Course course = courseservice.GetById(id);
@@ -88,6 +93,7 @@ namespace StudentManagement.Controllers
         }
 
         // POST: Course/Delete/5
+        [AllowAnonymous]
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

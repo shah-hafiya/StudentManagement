@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using StudentManagement.Api.Entities;
 using StudentManagement.Api.Services;
@@ -10,20 +11,19 @@ namespace StudentManagement.Controllers
     public class StudentController : Controller
     {
         private readonly IStudentManagementService stdManagementService;
-        public StudentController(IStudentManagementService stdManagementService)
+        private readonly ICourseManagementService courseservice;
+
+        public StudentController(IStudentManagementService stdManagementService, ICourseManagementService courseservice)
         {
             this.stdManagementService = stdManagementService;
+            this.courseservice = courseservice;
         }
 
         // GET: Student
+        [AllowAnonymous]
         public ActionResult Index(int page = 1)
         {
-            var name = Request.QueryString["name"] ?? string.Empty;
-
-            if (!string.IsNullOrEmpty(name))
-                ViewBag.Name = name;
-
-            var students = stdManagementService.GetAllStudents(name, page);
+            var students = stdManagementService.GetAllStudents(page, 10);
             return View(students);
         }
 
@@ -35,22 +35,71 @@ namespace StudentManagement.Controllers
             gender.Add("Female");
             gender.Add("Male");
 
+            var genderlist = new SelectList(gender);
+
+            ViewBag.Gender = genderlist; //new SelectList(db.Accounts, "AccountId", "AccountName");
+
+            List<Course> courses = courseservice.GetAll();
+            ViewBag.courses = new MultiSelectList(courses, "Id", "CourseName" );
+
+
             return View();
         }
 
         // POST: Student/Create
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Create(StudentCreateVM studentmodel)
+        public ActionResult Create(StudentCreateVM studentmodel, FormCollection collection)
         {
             if (ModelState.IsValid)
             {
+                try
+                {
+
+                }
+                catch (Exception ex )
+                { 
+                    
+                }
+
+
                 var student = StudentVM.ToStudent(studentmodel);
                 student.Password = studentmodel.Password;
 
-                stdManagementService.Add(student);
+                string courseIdstring = collection["Course"];
+                string[] courseArr = courseIdstring.Split(',');
 
-                return RedirectToAction("Login", "Account");
+                if (courseArr.Length > 5)
+                {
+                    //throw new Exception("Cannot Select more than 5 course");
+                    ModelState.AddModelError("", "Cannot Select more than 5 course");
+
+                    List<string> gender = new List<string>();
+                    gender.Add("Female");
+                    gender.Add("Male");
+                    var genderlist = new SelectList(gender);
+                    ViewBag.Gender = genderlist;
+
+                    List<Course> courses = courseservice.GetAll();
+                    ViewBag.courses = new MultiSelectList(courses, "Id", "CourseName");
+
+
+                    return View();
+                }
+                else
+                {
+                    foreach (string str in courseIdstring.Split(','))
+                    {
+                        Course c = courseservice.GetById(Convert.ToInt32(str));
+                        student.Courses.Add(c);
+                    }
+
+                    stdManagementService.Add(student);
+
+                    return RedirectToAction("Login", "Account");
+                }
+
+                
             }
 
             return View();

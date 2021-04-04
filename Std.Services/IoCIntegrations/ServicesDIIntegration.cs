@@ -1,6 +1,7 @@
 ﻿using Unity;
 using Std.Services.Services;
 using StudentManagement.Api.Services;
+using StudentManagement.Shared.Services;
 
 namespace Std.Services.IoCIntegrations
 {
@@ -11,6 +12,7 @@ namespace Std.Services.IoCIntegrations
             container.RegisterType<IUserManagementService, UsermanagementService>();
             container.RegisterType<IStudentManagementService, StudentManagementService>();
             container.RegisterType<ICourseManagementService, CourseManagementService>();
+            container.RegisterType<IReportManagementService, ReportManagementService>();
         }
     }
 }

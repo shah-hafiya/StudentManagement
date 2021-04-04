@@ -1,0 +1,42 @@
+﻿@model IEnumerable<StudentManagement.Shared.Entities.StudentNotRegisteredForMaxCourse>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>CourseWithSpace</h2>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CoursesEnrolled)
+        </th>
+       
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CoursesEnrolled)
+            </td>          
+        </tr>
+    }
+
+</table>

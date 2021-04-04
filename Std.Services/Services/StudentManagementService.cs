@@ -1,10 +1,8 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-using StudentManagement.Api.Entities;
+﻿using StudentManagement.Api.Entities;
 using StudentManagement.Api.Services;
 using StudentManagement.DataAccess.Repositories.Interfaces;
-using System.Linq.Expressions;
-using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Std.Services.Services
 {
@@ -30,14 +28,9 @@ namespace Std.Services.Services
             studentRepository.Delete(data);
         }
 
-        public PaginatedList<Student> GetAllStudents(string name, int pageIndex, int pageSize = 10)
+        public PaginatedList<Student> GetAllStudents(int pageIndex, int pageSize = 10)
         {
-            Expression<Func<Student, bool>> predicate = null;
-
-            if (!string.IsNullOrEmpty(name))
-                predicate = (s) => s.FirstName.Equals(name);
-
-            return studentRepository.Paginate(pageIndex, pageSize, x => x.Id, predicate);
+            return studentRepository.Paginate(pageIndex, pageSize, x => x.Id);
         }
 
         public Student GetById(int Id)
