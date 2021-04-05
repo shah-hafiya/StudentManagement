@@ -116,8 +116,8 @@ namespace StudentManagement.DataAccess.Repositories
                     {
                         StudentNotRegisteredForMaxCourse cs = new StudentNotRegisteredForMaxCourse();
                         cs.StudentId = Convert.ToInt32(reader[0]) ;
-                        cs.FirstName = Convert.ToString(reader[2]) ?? String.Empty;
-                        cs.CoursesEnrolled = Convert.ToInt32(reader[3]);
+                        cs.FirstName = Convert.ToString(reader[1]) ?? String.Empty;
+                        cs.CoursesEnrolled = Convert.ToInt32(reader[2]);
                         regstudent.Add(cs);
                     }
                 }

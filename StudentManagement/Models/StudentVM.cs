@@ -27,7 +27,7 @@ namespace StudentManagement.Models
 
         [Display(Name = "Birth Date")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "0:dd-mm-yyyy")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DOB { get; set; }
 
         [DataType(DataType.MultilineText)]
