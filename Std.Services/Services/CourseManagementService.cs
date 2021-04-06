@@ -54,7 +54,7 @@ namespace Std.Services.Services
             return courselist;
         }
 
-        public PaginatedList<Course> GetAllCourses(int pageIndex, int pageSize)
+        public PaginatedList<Course> GetAllCourses(int pageIndex, int pageSize = 10)
         {
             return _courseRepository.Paginate(pageIndex, pageSize, x => x.Id);
         }

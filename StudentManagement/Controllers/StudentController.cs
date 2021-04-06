@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 using StudentManagement.Api.Entities;
 using StudentManagement.Api.Services;
@@ -58,16 +59,7 @@ namespace StudentManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                try
-                {
-
-                }
-                catch (Exception ex )
-                { 
-                    
-                }
-
-
+               
                 var student = StudentVM.ToStudent(studentmodel);
                 student.Password = studentmodel.Password;
 
@@ -114,37 +106,70 @@ namespace StudentManagement.Controllers
         [AllowAnonymous]
         public ActionResult Edit(int id)
         {
+            
             Student student = stdManagementService.GetById(id); //courseservice.GetById(id);
-            return View(StudentVM.ToStudentVM(student));
+            List<Course> selectedcourses = (List<Course>)student.Courses;
 
+            List<Course> courses = courseservice.GetAll();           
+            ViewBag.courses = new MultiSelectList(courses, "Id", "CourseName", selectedcourses.Select(x => x.Id).ToArray());
+
+            return View(StudentVM.ToStudentVM(student));
         }
 
         // POST: Student/Edit/5
         [AllowAnonymous]
         [HttpPost]
-        public ActionResult Edit(int id, StudentVM studentmodel)
+        public ActionResult Edit(int id, StudentVM studentmodel, FormCollection fc)
         {
             if (ModelState.IsValid)
             {
+                string courseIdstring = fc["Course"];
+                string[] courseArr = courseIdstring.Split(',');
                 var student = stdManagementService.GetById(id);
-
-                if (student != null)
+                if (courseArr.Length <= 5)
                 {
-                    student.FirstName = studentmodel.FirstName;
-                    student.SurName = studentmodel.SurName;
-                    student.Gender = studentmodel.Gender;
-                    student.DOB = studentmodel.DOB;
-                    student.Address.Line1 = studentmodel?.Line1;
-                    student.Address.Line2 = studentmodel?.Line2;
-                    student.Address.Line3 = studentmodel?.Line3;
+                    
+                    if (student != null)
+                    {
+                        student.FirstName = studentmodel.FirstName;
+                        student.SurName = studentmodel.SurName;
+                        student.Gender = studentmodel.Gender;
+                        student.DOB = studentmodel.DOB;
+                        student.Address.Line1 = studentmodel?.Line1;
+                        student.Address.Line2 = studentmodel?.Line2;
+                        student.Address.Line3 = studentmodel?.Line3;
 
-                    stdManagementService.Update(student);
+                        student.Courses.Clear();
 
-                    return RedirectToAction("Index", "Student");
+                        foreach (string str in courseIdstring.Split(','))
+                        {
+                            Course c = courseservice.GetById(Convert.ToInt32(str));
+                            student.Courses.Add(c);
+                        }
+
+                        stdManagementService.Update(student);
+
+                        return RedirectToAction("Index", "Student");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, $"Student with {id} does not exists");
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, $"Student with {id} does not exists");
+                    //throw new Exception("Cannot Select more than 5 course");
+                    ModelState.AddModelError("", "Cannot Select more than 5 course");
+                    List<string> gender = new List<string>();
+                    gender.Add("Female");
+                    gender.Add("Male");
+                    var genderlist = new SelectList(gender);
+                    ViewBag.Gender = genderlist;
+
+                    List<Course> selectedcouurses = (List<Course>)student.Courses;
+                    List<Course> courses = courseservice.GetAll();
+                    ViewBag.courses = new MultiSelectList(courses, "Id", "CourseName", selectedcouurses.Select(x => x.Id).ToArray());
+                    return View();
                 }
             }
 

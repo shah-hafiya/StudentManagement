@@ -161,6 +161,7 @@
     <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\CourseVM.cs" />
     <Compile Include="Models\LoginVM.cs" />
+    <Compile Include="Models\PageList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\StudentVM.cs" />
   </ItemGroup>

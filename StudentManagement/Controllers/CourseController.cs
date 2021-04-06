@@ -17,12 +17,14 @@ namespace StudentManagement.Controllers
 
         // GET: Course
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult Index(int page = 1)
         {
-            List<Course> courses = courseservice.GetAll();
-            var paginated = courseservice.GetAllCourses(1, 2);
-
-            return View(courses);
+            var name = Request.QueryString["name"] ?? string.Empty;
+            if (!string.IsNullOrEmpty(name))
+                ViewBag.Name = name;
+            
+            var paginated = courseservice.GetAllCourses(page);
+            return View(paginated);
         }
 
         // GET: Course/Details/5

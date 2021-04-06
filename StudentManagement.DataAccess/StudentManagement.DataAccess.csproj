@@ -95,6 +95,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Context\StudentManagementDbContext.cs" />
+    <Compile Include="Context\StudentManagementDBInitializer.cs" />
     <Compile Include="IoCIntegrations\DataAccessDIIntegration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Extensions\IQueryableExtensions.cs" />

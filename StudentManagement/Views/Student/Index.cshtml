@@ -8,6 +8,14 @@
 
 <h2>Students List</h2>
 
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+
 @using (Html.BeginForm("Index", "Student", FormMethod.Get))
 {
     <div class="form-group">
@@ -23,6 +31,8 @@
         </div>
     </div>
 }
+
+
 
 <table class="table">
     <tr>

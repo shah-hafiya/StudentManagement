@@ -1,4 +1,5 @@
-﻿@model IEnumerable<StudentManagement.Api.Entities.Course>
+﻿@using StudentManagement.Api.Entities
+@model PaginatedList<Course>
 
 @{
     ViewBag.Title = "Index";
@@ -16,22 +17,22 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CourseCode)
+           CourseCode
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CourseName)
+            CourseName
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TeacherName)
+            TeacherName
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StartDate)
+            StartDate
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EndDate)
+            EndDate
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Space)
+            Space
         </th>
         <th></th>
     </tr>
@@ -66,3 +67,15 @@
     }
 
 </table>
+
+<div class="btn-group pull-right">
+    @Html.PageLinks(new PageInfo
+    {
+        PageIndex = Model.PageIndex,
+        PageSize = Model.PageSize,
+        TotalCount = Model.TotalCount,
+        TotalPageCount = Model.TotalPageCount,
+        HasNextPage = Model.HasNextPage,
+        HasPrevPage = Model.HasPreviousPage
+    }, x => Url.Action("Index", "Course", new { page = x }))
+</div>
